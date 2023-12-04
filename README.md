@@ -6,7 +6,7 @@
 - pipenv (Pour l'environment virtuel)
 - pip command
 - Django
-- Vue and Node Js
+- Node Js (npm)
 
 ## Setup
 
@@ -19,7 +19,6 @@ Pour ne lancer que le backend en local il faut faire a l'interieur du dossier ba
 cd customBackend/
 pipenv shell
 pip install -r requirements.txt
-python3 manage.py
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py runserver 0.0.0.0:8080
