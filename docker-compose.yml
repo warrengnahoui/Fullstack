@@ -14,7 +14,9 @@ services:
         restart: unless-stopped
 
     backend:
-        build: ./customBackend
+        build:
+            context: ./
+            dockerfile: ./customBackend/DockerFile
         container_name: dataprovider-backend
         image: dataprovider-backend
         ports:
@@ -23,7 +25,9 @@ services:
             - db
 
     frontend:
-        build: ./vue-frontend
+        build:
+            context: ./
+            dockerfile: ./vue-frontend/DockerFile
         container_name: dataprovider-frontend
         image: dataprovider-frontend
         command: bash -c "docker run --rm -p 8081:8081 -e "HOST=0.0.0.0" -d dataprovider-frontend"
