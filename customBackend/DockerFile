@@ -6,8 +6,6 @@ COPY ./customBackend /dataprovider-core/
 
 RUN pip install -r requirements.txt
 
-COPY . .
-
 EXPOSE 8080
 
 ENTRYPOINT ["/dataprovider-core/launch.sh"]
