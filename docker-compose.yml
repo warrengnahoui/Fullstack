@@ -5,7 +5,7 @@ services:
         image: postgres:16
         environment:
             - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=
+            - POSTGRES_PASSWORD=django
             - POSTGRES_DB=djangoapp
         volumes:
             - postgres_data:/var/lib/postgres/data/
@@ -26,9 +26,9 @@ services:
         image: dataprovider-backend
         ports:
             - "8080:8080"
-        # depends_on:
-        #     db:
-        #         condition: service_healthy
+        depends_on:
+            db:
+                condition: service_healthy
 
     frontend:
         build:
@@ -36,7 +36,6 @@ services:
             dockerfile: ./vue-frontend/DockerFile
         container_name: dataprovider-frontend
         image: dataprovider-frontend
-        command: bash -c "docker run --rm -p 8081:8081 -e "HOST=0.0.0.0" -d dataprovider-frontend"
         ports:
             - "8081:8081"
         depends_on:
