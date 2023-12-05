@@ -1,4 +1,12 @@
-const BACKEND_URL = "http://127.0.0.1:8080/api"
+const DEPLOY = true
+
+let BACKEND_URL
+
+if (DEPLOY === false) {
+  BACKEND_URL = "http://127.0.0.1:8080/api"
+} else {
+  BACKEND_URL = "http://0.0.0.0:8080/api"
+}
 
 const REGISTER_URL = BACKEND_URL + '/auth/register/'
 
