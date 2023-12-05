@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-r+s)u!j3exh&3vy&4pa86ercj*-(0t!dfg2sdti_#)^i23-6q8
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DEPLOY = False
 
 AUTH_USER_MODEL = 'authentication.User'
 
@@ -91,17 +92,29 @@ WSGI_APPLICATION = 'customBackend.wsgi.application'
     }
 }'''
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'djangoapp', 
-        'USER': 'postgres',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
-    }
-}
+if DEPLOY:
+    DEFAULT = {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'djangoapp', 
+            'USER': 'postgres',
+            'PASSWORD': 'django',
+            'HOST': 'dataprovider-db', 
+            'PORT': '5432',
+        }
 
+else:
+    DEFAULT = {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'djangoapp', 
+            'USER': 'postgres',
+            'PASSWORD': 'django',
+            'HOST': 'localhost', 
+            'PORT': '5432',
+        }
+
+DATABASES = {
+    'default': DEFAULT
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
