@@ -18,9 +18,12 @@ class PerformanceSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('No stats provided')
         if not isinstance(stats, dict):
             raise serializers.ValidationError('Stats must be a dictionary')
-        if not stats.get('points') or not stats.get('assists') or not stats.get('rebounds'):
+        print(not stats.get('points') or not stats.get('assists') or not stats.get('rebounds'))
+        if stats.get('points') != None and stats.get('assists') != None and stats.get('rebounds') != None:
+            return attrs
+        else:
             raise serializers.ValidationError('Missing keys in stats. This keys (points, assists, rebounds) are required')
-        return attrs
+        
 
 
 class BlankSerializer(serializers.ModelSerializer):

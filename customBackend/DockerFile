@@ -2,10 +2,12 @@ FROM python:3.8.10
 
 WORKDIR /dataprovider-core
 
-COPY ./customBackend /dataprovider-core/
+COPY ./customBackend /dataprovider-core
 
 RUN pip install -r requirements.txt
 
+RUN python manage.py makemigrations && python manage.py migrate
+
 EXPOSE 8080
 
-ENTRYPOINT ["/dataprovider-core/launch.sh"]
+CMD python manage.py runserver 0.0.0.0:8080 --noreload

@@ -15,7 +15,21 @@
         <p>Team: {{ player.team }} Basketball Club.</p>
 				<p>Position: {{ player.position}}.</p>
 				<p>Jersey Number: {{ player.number}}.</p>
-				<p>Average Performances: {{ stats[player.id]['points'] }} pts  {{ stats[player.id]['assists'] }} assists {{ stats[player.id]['rebounds'] }} rebounds</p>
+				<br>
+				<div :class="(stats[player.id]['points'] > 50) ? 'progress' : 'progress less'" :style="`--i:${stats[player.id]['points']}; --clr:#43f94a`">
+          <h3>{{stats[player.id]['points']}}</h3>
+          <h4>PTS</h4>
+        </div>
+        <div :class="(stats[player.id]['assists'] > 50) ? 'progress' : 'progress less'" :style="`--i:${stats[player.id]['assists']}; --clr:#2ccde9`">
+          <h3>{{stats[player.id]['assists']}}</h3>
+          <h4>ASSTS</h4>
+        </div>
+        <div :class="(stats[player.id]['rebounds'] > 50) ? 'progress' : 'progress less'" :style="`--i:${stats[player.id]['rebounds']}; --clr:#fb297b`">
+          <h3>{{stats[player.id]['rebounds']}}</h3>
+          <h4>REBS</h4>
+        </div>
+        <br><br>
+				<!--p>Average Performances: {{ stats[player.id]['points'] }} pts  {{ stats[player.id]['assists'] }} assists {{ stats[player.id]['rebounds'] }} rebounds</p-->
         <a @click="Update(player.id, player.name, player.team, player.position, player.number)" class="btn">Modify</a>
         <a @click="DelPlayer(player.id)" class="del">Delete</a>
       </div>
@@ -336,7 +350,7 @@ export default {
 
 .content .box-container{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 15px;
 }
 
@@ -409,6 +423,76 @@ export default {
 .content .box-container .box:hover{
   box-shadow: 0 10px 15px rgba(0, 0, 0, .2);
   transform: scale(1.03);
+}
+
+.content .box-container .box .progress{
+  position: relative;
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 5px;
+  color: #fff;
+  background: #fff linear-gradient(to right, transparent 50%, var(--clr) 0);
+}
+
+.content .box-container .box .progress h3{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #fff;
+  transform: translate(-50%, -50%);
+  font-size: 2.5em;
+  z-index: 1;
+  font-weight: 500;
+}
+
+.content .box-container .box .progress h3 span{
+  font-size: 0.65em;
+  font-weight: 400;
+}
+
+.content .box-container .box .progress h3 span{
+  font-size: 0.65em;
+  font-weight: 400;
+}
+
+.content .box-container .box .progress h4{
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  font-weight: 500;
+  color: var(--clr);
+  text-transform: uppercase;
+}
+
+.content .box-container .box .progress::before{
+  content: '';
+  display: block;
+  height: 100%;
+  margin-left: 50%;
+  transform-origin: left;
+  border-radius: 0 100% 100% 0/50%;
+}
+
+.content .box-container .box .progress::after{
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #c9d6ff, #633ebb);
+}
+
+.content .box-container .box .progress::before{
+  background: var(--clr);
+  transform: rotate(calc(((var(--i) - 50) * 0.01turn)));
+}
+
+.content .box-container .box .progress.less::before{
+  background: #fff;
+  transform: rotate(calc(((var(--i) - 0) * 0.01turn)));
 }
 
 @media (max-width:768px){
